@@ -50,7 +50,7 @@ describe('Aset Service', () => {
       try {
         const aset = await asetService.readOne(asetMockId._id);
       } catch(e: any) {
-        expect(e.message).to.be.deep.equal('EntityNotFound');
+        expect(e.name).to.be.deep.equal('EntityNotFound');
       }
     });
   })

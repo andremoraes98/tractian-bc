@@ -1,6 +1,7 @@
 import IService from '../interface/IService';
 import IAset, { asetSchema } from '../interface/Aset';
 import IModel from '../interface/IModel';
+import CustomError from '../middleware/erros/CustomError';
 
 class AsetService implements IService<IAset> {
   private _frame: IModel<IAset>;
@@ -25,7 +26,10 @@ class AsetService implements IService<IAset> {
     const aset = await this._frame.readOne(_id);
 
     if (!aset) {
-      throw new Error('EntityNotFound');
+      throw new CustomError(
+        'EntityNotFound',
+        'Nenhum ativo com esse ID foi encontrado.',
+      );
     }
 
     return aset;
