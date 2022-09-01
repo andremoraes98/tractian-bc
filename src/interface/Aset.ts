@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 const asetSchema = z.object({
-  _id: z.string(),
   name: z.string(),
   model: z.string(),
   owner: z.string(),
