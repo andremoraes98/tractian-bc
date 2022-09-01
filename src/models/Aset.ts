@@ -3,7 +3,6 @@ import IAset from '../interface/Aset';
 import MongoModel from './MongoModel';
 
 const asetMongooseSchema = new Schema<IAset>({
-  _id: String,
   name: String,
   model: String,
   owner: String,
