@@ -10,6 +10,9 @@ const asetMongooseSchema = new Schema<IAset>({
   status: String,
   helthLevel: String,
   image: String,
+  energy: [Number],
+  temp: [Number],
+  vibration: [Number],
 });
 
 class Aset extends MongoModel<IAset> {

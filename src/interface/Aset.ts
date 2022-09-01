@@ -8,6 +8,9 @@ const asetSchema = z.object({
   status: z.string(),
   helthLevel: z.string(),
   image: z.string(),
+  energy: z.number().array(),
+  temp: z.number().array(),
+  vibration: z.number().array(),
 });
 
 type IAset = z.infer<typeof asetSchema>;
