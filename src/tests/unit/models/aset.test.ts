@@ -37,7 +37,7 @@ describe('Aset Model', () => {
   
         expect(newAset).to.be.deep.equal(asetMockId);
       } catch(e: any) {
-        expect(e.message).to.be.eq('InvalidMongoId')
+        expect(e.name).to.be.eq('InvalidMongoId')
       }
     });
   });
