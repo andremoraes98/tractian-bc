@@ -41,6 +41,16 @@ class AsetController {
       .status(201)
       .json({ message: `O ativo ${aset.name} foi atualizado com sucesso.` });
   }
+
+  public async destroy(req: Request, res: Response) {
+    const { id } = req.params;
+
+    await this._service.destroy(id);
+
+    return res
+      .status(201)
+      .json({ message: 'O ativo foi excluído com sucesso.' });
+  }
 }
 
 export default AsetController;
