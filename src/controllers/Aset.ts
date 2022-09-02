@@ -30,6 +30,17 @@ class AsetController {
 
     return res.status(200).json(result);
   }
+
+  public async update(req: Request, res: Response) {
+    const { id } = req.params;
+    const aset = req.body as IAset;
+
+    await this._service.update(id, aset);
+
+    return res
+      .status(201)
+      .json({ message: `O ativo ${aset.name} foi atualizado com sucesso.` });
+  }
 }
 
 export default AsetController;
