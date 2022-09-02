@@ -5,6 +5,7 @@ import Aset from '../../../models/Aset';
 import { asetMock, asetMockId } from '../../mocks/asetMock';
 import AsetService from '../../../services/Aset';
 import { ZodError } from 'zod';
+import CustomError from '../../../middleware/erros/CustomError';
 
 describe('Aset Service', () => {
   const asetModel = new Aset();
@@ -16,6 +17,7 @@ describe('Aset Service', () => {
       .onCall(0).resolves(asetMockId)
       .onCall(1).resolves(null);
     Sinon.stub(asetModel, 'readAll').resolves([asetMockId]);
+    Sinon.stub(asetModel, 'update').resolves();
   });
 
   afterEach(() => {
@@ -61,6 +63,26 @@ describe('Aset Service', () => {
       const aset = await asetService.readAll();
 
       expect(aset).to.be.deep.equal([asetMockId]);
+    });
+  });
+
+  describe('editando um ativo', () => {
+    it('falha na validação do ativo.', async () => {
+      try {
+        await asetService.update(asetMockId._id, {} as any);
+      } catch(e: any) {
+        expect(e).to.be.instanceOf(ZodError);
+      }
+    });
+
+    it('quando o id informado não é válido.', async () => {
+      try {
+        await asetService.update('falseId', asetMock);
+      } catch(e: any) {
+        expect(e).to.be.instanceOf(CustomError);
+        expect(e.name).to.be.deep.equal('InvalidMongoId');
+        expect(e.message).to.be.deep.equal('O ID inserido não é válido!');
+      }
     });
   });
 });
