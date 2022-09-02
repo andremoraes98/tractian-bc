@@ -17,6 +17,7 @@ describe('Aset Service', () => {
       .resolves(asetMockId);
     Sinon.stub(asetModel, 'readAll').resolves([asetMockId]);
     Sinon.stub(asetModel, 'update').resolves();
+    Sinon.stub(asetModel, 'destroy').resolves();
   });
 
   after(() => {
@@ -89,6 +90,18 @@ describe('Aset Service', () => {
     it('quando o id informado não é válido.', async () => {
       try {
         await asetService.update('falseId', asetMock);
+      } catch(e: any) {
+        expect(e).to.be.instanceOf(CustomError);
+        expect(e.name).to.be.deep.equal('InvalidMongoId');
+        expect(e.message).to.be.deep.equal('O ID inserido não é válido!');
+      }
+    });
+  });
+
+  describe('excluindo um ativo', () => {
+    it('quando o id informado não é válido.', async () => {
+      try {
+        await asetService.destroy('falsoId');
       } catch(e: any) {
         expect(e).to.be.instanceOf(CustomError);
         expect(e.name).to.be.deep.equal('InvalidMongoId');
