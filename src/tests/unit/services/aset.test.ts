@@ -1,4 +1,3 @@
-import { Model } from 'mongoose';
 import { expect } from 'chai';
 import Sinon from 'sinon';
 import Aset from '../../../models/Aset';
@@ -11,16 +10,16 @@ describe('Aset Service', () => {
   const asetModel = new Aset();
   const asetService = new AsetService(asetModel);
 
-  beforeEach(() => {
+  before(() => {
     Sinon.stub(asetModel, 'create').resolves(asetMockId);
     Sinon.stub(asetModel, 'readOne')
-      .onCall(0).resolves(asetMockId)
-      .onCall(1).resolves(null);
+      .onCall(0).resolves(null)
+      .resolves(asetMockId);
     Sinon.stub(asetModel, 'readAll').resolves([asetMockId]);
     Sinon.stub(asetModel, 'update').resolves();
   });
 
-  afterEach(() => {
+  after(() => {
     Sinon.restore();
   });
 
@@ -43,18 +42,30 @@ describe('Aset Service', () => {
   });
 
   describe('procurando um ativo', () => {
+    it('quando o banco não acha o ativo.', async () => {
+      try {
+        await asetService.readOne(asetMockId._id);
+      } catch(e: any) {
+        expect(e).to.be.instanceOf(CustomError);
+        expect(e.name).to.be.deep.equal('EntityNotFound');
+        expect(e.message).to.be.deep.equal('Nenhum ativo com esse ID foi encontrado.');
+      }
+    });
+
+    it('quando o id informado não é válido.', async () => {
+      try {
+        await asetService.readOne('falsoId');
+      } catch(e: any) {
+        expect(e).to.be.instanceOf(CustomError);
+        expect(e.name).to.be.deep.equal('InvalidMongoId');
+        expect(e.message).to.be.deep.equal('O ID inserido não é válido!');
+      }
+    });
+
     it('quando é achado o ativo.', async () => {
       const aset = await asetService.readOne(asetMockId._id);
 
       expect(aset).to.be.deep.equal(asetMockId);
-    });
-
-    it('quando o ativo não é achado.', async () => {
-      try {
-        const aset = await asetService.readOne(asetMockId._id);
-      } catch(e: any) {
-        expect(e.name).to.be.deep.equal('EntityNotFound');
-      }
     });
   });
 
