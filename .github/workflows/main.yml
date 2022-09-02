@@ -1,7 +1,7 @@
 on: [push]
 
 jobs:
-  eslint:
+  ESLint e Tests:
     runs-on: ubuntu-latest
     steps:
         - name: Verifica o repositório do Git...
