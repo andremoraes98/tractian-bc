@@ -10,14 +10,24 @@ abstract class MongoModel<T> implements IModel<T> {
   }
 
   public async create(object: T): Promise<T> {
-    return this._model.create({ ...object });
+    const createdAset = this._model.create({ ...object });
+
+    return createdAset;
   }
 
   public async readOne(_id: string): Promise<T | null> {
     if (!isValidObjectId(_id)) {
       throw new CustomError('InvalidMongoId', 'O ID inserido não é válido!');
     }
-    return this._model.findOne({ _id });
+    const aset = this._model.findOne({ _id });
+
+    return aset;
+  }
+
+  public async readAll(): Promise<T[]> {
+    const result = this._model.find();
+
+    return result;
   }
 }
 
