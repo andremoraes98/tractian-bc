@@ -10,14 +10,15 @@ describe('Aset Service', () => {
   const asetModel = new Aset();
   const asetService = new AsetService(asetModel);
 
-  before(() => {
+  beforeEach(() => {
     Sinon.stub(asetModel, 'create').resolves(asetMockId);
     Sinon.stub(asetModel, 'readOne')
       .onCall(0).resolves(asetMockId)
       .onCall(1).resolves(null);
+    Sinon.stub(asetModel, 'readAll').resolves([asetMockId]);
   });
 
-  after(() => {
+  afterEach(() => {
     Sinon.restore();
   });
 
@@ -53,5 +54,13 @@ describe('Aset Service', () => {
         expect(e.name).to.be.deep.equal('EntityNotFound');
       }
     });
-  })
+  });
+
+  describe('procurando todos os ativo', () => {
+    it('retornando todos.', async () => {
+      const aset = await asetService.readAll();
+
+      expect(aset).to.be.deep.equal([asetMockId]);
+    });
+  });
 });
