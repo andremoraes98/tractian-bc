@@ -1,10 +1,8 @@
 import {
-  isValidObjectId,
   model as mongooseCreateModel,
   Schema,
 } from 'mongoose';
 import IAset from '../interface/Aset';
-import CustomError from '../middleware/erros/CustomError';
 import MongoModel from './MongoModel';
 
 const asetMongooseSchema = new Schema<IAset>({
@@ -25,10 +23,6 @@ class Aset extends MongoModel<IAset> {
   }
 
   public async readOne(_id: string): Promise<IAset | null> {
-    if (!isValidObjectId(_id)) {
-      throw new CustomError('InvalidMongoId', 'O ID inserido não é válido!');
-    }
-
     const aset = this._model.findOne({ _id }, {
       name: 1,
       model: 1,
