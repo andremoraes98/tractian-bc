@@ -7,13 +7,15 @@ import { asetMock, asetMockId } from '../../mocks/asetMock';
 describe('Aset Model', () => {
   const asetModel = new Aset();
 
-  beforeEach(() => {
+  before(() => {
     Sinon.stub(Model, 'create').resolves(asetMockId);
-    Sinon.stub(Model, 'findOne').resolves(asetMockId);
+    Sinon.stub(Model, 'findOne')
+      .onCall(0).resolves(asetMockId)
+      .onCall(1).resolves(null);
     Sinon.stub(Model, 'find').resolves([asetMockId]);
   });
 
-  afterEach(() => {
+  after(() => {
     Sinon.restore();
   });
 
@@ -32,14 +34,10 @@ describe('Aset Model', () => {
       expect(aset).to.be.deep.equal(asetMockId);
     });
 
-    it('id não encontrado.', async () => {
-      try {
-        const aset = await asetModel.readOne('falsoId');
-  
-        expect(aset).to.be.deep.equal(asetMockId);
-      } catch(e: any) {
-        expect(e.name).to.be.eq('InvalidMongoId')
-      }
+    it('quando o ativo não é achado.', async () => {
+      const aset = await asetModel.readOne('wrongId');
+
+      expect(aset).to.be.null;
     });
   });
 
