@@ -20,8 +20,8 @@ const erroMiddleware = (
       .map(({ path }) => `O campo ${path[0]} recebeu um valor inesperado.`);
     return res.status(400).json({ message: messageError });
   } if (!httpStatus) {
-    return res.status(httpStatus).json({ message });
-  } return res.status(500).json({ message });
+    return res.status(500).json({ message });
+  } return res.status(httpStatus).json({ message });
 };
 
 export default erroMiddleware;
