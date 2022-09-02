@@ -33,6 +33,10 @@ abstract class MongoModel<T> implements IModel<T> {
   public async update(_id: string, object: T): Promise<void> {
     await this._model.updateOne({ _id }, { $set: { object } });
   }
+
+  public async destroy(_id: string): Promise<void> {
+    await this._model.remove({ _id });
+  }
 }
 
 export default MongoModel;
