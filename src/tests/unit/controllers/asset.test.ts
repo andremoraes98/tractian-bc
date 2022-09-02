@@ -15,15 +15,16 @@ describe('Aset Controller', () => {
   const req = {} as Request;
   const res = {} as Response;
 
-  before(() => {
+  beforeEach(() => {
     Sinon.stub(asetService, 'create').resolves(asetMockId);
     Sinon.stub(asetService, 'readOne').resolves(asetMockId);
+    Sinon.stub(asetService, 'readAll').resolves([asetMockId]);
 
     res.status = Sinon.stub().returns(res);
     res.json = Sinon.stub().returns(res);
   });
 
-  after(() => {
+  afterEach(() => {
     Sinon.restore();
   });
 
@@ -44,6 +45,15 @@ describe('Aset Controller', () => {
 
       expect((res.status as Sinon.SinonStub).calledWith(200)).to.be.true;
       expect((res.json as Sinon.SinonStub).calledWith(asetMockId)).to.be.true;
+    });
+  });
+
+  describe('procurando todos os ativos', () => {
+    it('retornando todos os ativos.', async () => {
+      await asetController.readAll(req, res);
+
+      expect((res.status as Sinon.SinonStub).calledWith(200)).to.be.true;
+      expect((res.json as Sinon.SinonStub).calledWith([asetMockId])).to.be.true;
     });
   });
 });
