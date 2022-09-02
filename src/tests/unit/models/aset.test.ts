@@ -3,6 +3,7 @@ import { expect } from 'chai';
 import Sinon from 'sinon';
 import Aset from '../../../models/Aset';
 import { asetMock, asetMockId } from '../../mocks/asetMock';
+import CustomError from '../../../middleware/erros/CustomError';
 
 describe('Aset Model', () => {
   const asetModel = new Aset();
@@ -13,6 +14,7 @@ describe('Aset Model', () => {
       .onCall(0).resolves(asetMockId)
       .onCall(1).resolves(null);
     Sinon.stub(Model, 'find').resolves([asetMockId]);
+    Sinon.stub(Model, 'findById').resolves(null);
   });
 
   after(() => {
@@ -50,10 +52,16 @@ describe('Aset Model', () => {
   });
 
   describe('editando um ativo', () => {
-    it('valida se a função foi chamada corretamente.', async () => {
-      const result = await asetModel.update(asetMockId._id, asetMock);
-
-      expect(result).to.be.undefined;
+    it('valida se é jogado um erro ao não encontrar o ativo.', async () => {
+      try {
+        const result = await asetModel.update(asetMockId._id, asetMock);
+  
+        expect(result).to.be.undefined;
+      } catch(e: any) {
+        expect(e).to.be.instanceOf(CustomError);
+        expect(e.name).to.be.deep.equal('EntityNotFound');
+        expect(e.message).to.be.deep.equal('Nenhum ativo com esse ID foi encontrado.');
+      }
     })
   });
 });
