@@ -19,6 +19,8 @@ describe('Aset Controller', () => {
     Sinon.stub(asetService, 'create').resolves(asetMockId);
     Sinon.stub(asetService, 'readOne').resolves(asetMockId);
     Sinon.stub(asetService, 'readAll').resolves([asetMockId]);
+    Sinon.stub(asetService, 'update').resolves();
+    Sinon.stub(asetService, 'destroy').resolves();
 
     res.status = Sinon.stub().returns(res);
     res.json = Sinon.stub().returns(res);
@@ -54,6 +56,24 @@ describe('Aset Controller', () => {
 
       expect((res.status as Sinon.SinonStub).calledWith(200)).to.be.true;
       expect((res.json as Sinon.SinonStub).calledWith([asetMockId])).to.be.true;
+    });
+  });
+
+  describe('editando um ativo', () => {
+    it('editado com sucesso.', async () => {
+      req.body = asetMock;
+      await asetController.update(req, res);
+
+      expect((res.status as Sinon.SinonStub).calledWith(201)).to.be.true;
+    });
+  });
+
+  describe('excluindo um ativo', () => {
+    it('excluído com sucesso.', async () => {
+      req.body = asetMock;
+      await asetController.destroy(req, res);
+
+      expect((res.status as Sinon.SinonStub).calledWith(201)).to.be.true;
     });
   });
 });
