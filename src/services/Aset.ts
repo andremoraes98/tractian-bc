@@ -24,6 +24,10 @@ class AsetService implements IService<IAset> {
   }
 
   public async readOne(_id: string): Promise<IAset> {
+    if (!isValidObjectId(_id)) {
+      throw new CustomError('InvalidMongoId', 'O ID inserido não é válido!');
+    }
+
     const aset = await this._aset.readOne(_id);
 
     if (!aset) {
