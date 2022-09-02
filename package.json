@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run swagger-autogen && npm run build && node dist/src",
+    "start": "npm run swagger-autogen && ts-node src/index.ts",
     "dev": "npm run swagger-autogen && nodemon --watch \"./src/**\" --ext \"ts\" --ignore \"src/tests\" --exec \"ts-node src/index.ts\"",
-    "build": "tsc",
     "test": "mocha -r ts-node/register src/tests/unit/**/*.test.ts --exit -t 60000",
     "swagger-autogen": "node swagger.js"
   },
