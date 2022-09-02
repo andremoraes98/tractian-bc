@@ -48,4 +48,12 @@ describe('Aset Model', () => {
       expect(asets).to.be.deep.equal([asetMockId]);
     });
   });
+
+  describe('editando um ativo', () => {
+    it('valida se a função foi chamada corretamente.', async () => {
+      const result = await asetModel.update(asetMockId._id, asetMock);
+
+      expect(result).to.be.undefined;
+    })
+  });
 });
