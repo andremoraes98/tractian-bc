@@ -4,10 +4,10 @@ import IModel from '../interface/IModel';
 import CustomError from '../middleware/erros/CustomError';
 
 class AsetService implements IService<IAset> {
-  private _frame: IModel<IAset>;
+  private _aset: IModel<IAset>;
 
   constructor(model: IModel<IAset>) {
-    this._frame = model;
+    this._aset = model;
   }
 
   public async create(object: IAset): Promise<IAset> {
@@ -17,13 +17,13 @@ class AsetService implements IService<IAset> {
       throw parsed.error;
     }
 
-    const createdAset = this._frame.create(object);
+    const createdAset = await this._aset.create(object);
 
     return createdAset;
   }
 
   public async readOne(_id: string): Promise<IAset> {
-    const aset = await this._frame.readOne(_id);
+    const aset = await this._aset.readOne(_id);
 
     if (!aset) {
       throw new CustomError(
@@ -33,6 +33,12 @@ class AsetService implements IService<IAset> {
     }
 
     return aset;
+  }
+
+  public async readAll(): Promise<IAset[]> {
+    const result = await this._aset.readAll();
+
+    return result;
   }
 }
 
