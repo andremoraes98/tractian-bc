@@ -1,3 +1,4 @@
+import { isValidObjectId } from 'mongoose';
 import IService from '../interface/IService';
 import IAset, { asetSchema } from '../interface/Aset';
 import IModel from '../interface/IModel';
@@ -39,6 +40,20 @@ class AsetService implements IService<IAset> {
     const result = await this._aset.readAll();
 
     return result;
+  }
+
+  public async update(_id: string, object: IAset): Promise<void> {
+    if (!isValidObjectId(_id)) {
+      throw new CustomError('InvalidMongoId', 'O ID inserido não é válido!');
+    }
+
+    const parsed = asetSchema.safeParse(object);
+
+    if (!parsed.success) {
+      throw parsed.error;
+    }
+
+    await this._aset.update(_id, object);    
   }
 }
 
