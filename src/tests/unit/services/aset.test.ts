@@ -56,8 +56,8 @@ describe('Aset Service', () => {
     });
   });
 
-  describe('procurando todos os ativo', () => {
-    it('retornando todos.', async () => {
+  describe('procurando todos os ativos', () => {
+    it('retornando todos os ativos.', async () => {
       const aset = await asetService.readAll();
 
       expect(aset).to.be.deep.equal([asetMockId]);

@@ -7,12 +7,13 @@ import { asetMock, asetMockId } from '../../mocks/asetMock';
 describe('Aset Model', () => {
   const asetModel = new Aset();
 
-  before(() => {
+  beforeEach(() => {
     Sinon.stub(Model, 'create').resolves(asetMockId);
     Sinon.stub(Model, 'findOne').resolves(asetMockId);
+    Sinon.stub(Model, 'find').resolves([asetMockId]);
   });
 
-  after(() => {
+  afterEach(() => {
     Sinon.restore();
   });
 
@@ -26,19 +27,27 @@ describe('Aset Model', () => {
 
   describe('procurando um ativo', () => {
     it('achado com sucesso.', async () => {
-      const newAset = await asetModel.readOne('62cf1fc6498565d94eba52cd');
+      const aset = await asetModel.readOne('62cf1fc6498565d94eba52cd');
 
-      expect(newAset).to.be.deep.equal(asetMockId);
+      expect(aset).to.be.deep.equal(asetMockId);
     });
 
     it('id não encontrado.', async () => {
       try {
-        const newAset = await asetModel.readOne('falsoId');
+        const aset = await asetModel.readOne('falsoId');
   
-        expect(newAset).to.be.deep.equal(asetMockId);
+        expect(aset).to.be.deep.equal(asetMockId);
       } catch(e: any) {
         expect(e.name).to.be.eq('InvalidMongoId')
       }
+    });
+  });
+
+  describe('procurando todos os ativos', () => {
+    it('retornando todos os ativos.', async () => {
+      const asets = await asetModel.readAll();
+
+      expect(asets).to.be.deep.equal([asetMockId]);
     });
   });
 });
