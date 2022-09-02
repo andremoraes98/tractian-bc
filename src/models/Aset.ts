@@ -3,6 +3,7 @@ import {
   Schema,
 } from 'mongoose';
 import IAset from '../interface/Aset';
+import CustomError from '../middleware/erros/CustomError';
 import MongoModel from './MongoModel';
 
 const asetMongooseSchema = new Schema<IAset>({
@@ -52,6 +53,29 @@ class Aset extends MongoModel<IAset> {
     });
 
     return result;
+  }
+
+  public async update(_id: string, object: IAset): Promise<void> {
+    const aset = await this._model.findById(_id);
+
+    if (!aset) {
+      throw new CustomError(
+        'EntityNotFound',
+        'Nenhum ativo com esse ID foi encontrado.',
+      );
+    }
+
+    aset.name = object.name;
+    aset.model = object.model;
+    aset.owner = object.owner;
+    aset.status = object.status;
+    aset.helthLevel = object.helthLevel;
+    aset.image = object.image;
+    aset.energy = object.energy;
+    aset.temp = object.temp;
+    aset.vibration = object.vibration;
+
+    await aset.save();
   }
 }
 
