@@ -4,6 +4,8 @@ import IAset, { asetSchema } from '../interface/Aset';
 import IModel from '../interface/IModel';
 import CustomError from '../middleware/erros/CustomError';
 
+const InvalidMongoIdMessage = 'O ID inserido não é válido!';
+
 class AsetService implements IService<IAset> {
   private _aset: IModel<IAset>;
 
@@ -25,7 +27,7 @@ class AsetService implements IService<IAset> {
 
   public async readOne(_id: string): Promise<IAset> {
     if (!isValidObjectId(_id)) {
-      throw new CustomError('InvalidMongoId', 'O ID inserido não é válido!');
+      throw new CustomError('InvalidMongoId', InvalidMongoIdMessage);
     }
 
     const aset = await this._aset.readOne(_id);
@@ -48,7 +50,7 @@ class AsetService implements IService<IAset> {
 
   public async update(_id: string, object: IAset): Promise<void> {
     if (!isValidObjectId(_id)) {
-      throw new CustomError('InvalidMongoId', 'O ID inserido não é válido!');
+      throw new CustomError('InvalidMongoId', InvalidMongoIdMessage);
     }
 
     const parsed = asetSchema.safeParse(object);
@@ -58,6 +60,13 @@ class AsetService implements IService<IAset> {
     }
 
     await this._aset.update(_id, object);    
+  }
+
+  public async destroy(_id: string): Promise<void> {
+    if (!isValidObjectId(_id)) {
+      throw new CustomError('InvalidMongoId', InvalidMongoIdMessage);
+    }
+    await this._aset.destroy(_id);    
   }
 }
 
