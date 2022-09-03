@@ -13,9 +13,18 @@ const asetMongooseSchema = new Schema<IAset>({
   status: String,
   helthLevel: String,
   image: String,
-  energy: [Number],
-  temp: [Number],
-  vibration: [Number],
+  energy: {
+    limit: [Number],
+    data: [Number],
+  },
+  temp: {
+    limit: [Number],
+    data: [Number],
+  },
+  vibration: {
+    limit: [Number],
+    data: [Number],
+  },
   createdAt: Date,
   updatedAt: Date,
 });

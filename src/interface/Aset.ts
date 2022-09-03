@@ -7,9 +7,18 @@ const asetSchema = z.object({
   status: z.string(),
   helthLevel: z.string(),
   image: z.string(),
-  energy: z.number().array(),
-  temp: z.number().array(),
-  vibration: z.number().array(),
+  energy: z.object({
+    data: z.number().array(),
+    limit: z.number().array(),
+  }),
+  temp: z.object({
+    data: z.number().array(),
+    limit: z.number().array(),
+  }),
+  vibration: z.object({
+    data: z.number().array(),
+    limit: z.number().array(),
+  }),
   createdAt: z.preprocess((arg) => {
     if (typeof arg === 'string' || arg instanceof Date) return new Date(arg);
   }, z.date()),

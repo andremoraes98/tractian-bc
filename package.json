@@ -8,7 +8,7 @@
     "dev": "npm run swagger-autogen && nodemon --watch \"./src/**\" --ext \"ts\" --ignore \"src/tests\" --exec \"ts-node src/index.ts\"",
     "build": "tsc",
     "test": "mocha -r ts-node/register src/tests/unit/**/*.test.ts --exit -t 60000",
-    "swagger-autogen": "node swagger.js"
+    "swagger-autogen": "npm run build && node swagger.js"
   },
   "keywords": [],
   "author": "",
