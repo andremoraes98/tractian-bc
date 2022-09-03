@@ -1,6 +1,6 @@
 # TRACTIAN CRUD API
 
-## Descrição
+## Descrição :memo:
 
 Esta API tem como objetivo gerenciar usuários, unidades e ativos de uma empresa.
 
@@ -33,7 +33,7 @@ Caso queira consultar a documentação, ela está disponível neste [link](https
 
 ---
 
-## Instalando a aplicação
+## Instalando a aplicação :file_cabinet:
 
 Para clonar o repositório para a sua máquina e instalar as dependências, basta rodar o comando: 
 
