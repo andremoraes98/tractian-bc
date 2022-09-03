@@ -5,7 +5,7 @@ const doc = {
     title: 'TRACTIAN CRUD API',
     description: 'Uma API baseada nos conceitos CRUD com o objetivo de gerenciar todos os ativos de uma unidade.',
   },
-  host: 'localhost:3001',
+  host: 'https://tractian-bc.herokuapp.com/',
   schemes: ['http'],
 };
 
