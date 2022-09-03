@@ -5,7 +5,7 @@
     "description": "Uma API baseada nos conceitos CRUD com o objetivo de gerenciar todos os ativos de uma unidade.",
     "version": "1.0.0"
   },
-  "host": "localhost:3001",
+  "host": "https://tractian-bc.herokuapp.com/",
   "basePath": "/",
   "schemes": [
     "http"
