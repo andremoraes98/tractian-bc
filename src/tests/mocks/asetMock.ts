@@ -16,6 +16,8 @@ const asetMock: IAset = {
   vibration: [30, 40, 45, 30, 40, 45, 30, 40, 45, 30,
     40, 45, 30, 40, 45, 30, 40, 45, 30, 40, 45, 30,
     40, 45, 30, 40, 45, 30, 55, 60],
+  createdAt: new Date(),
+  updatedAt: new Date(),
 };
 
 const asetMockId: IAset & { _id: string } = {
@@ -35,6 +37,8 @@ const asetMockId: IAset & { _id: string } = {
   vibration: [30, 40, 45, 30, 40, 45, 30, 40, 45, 30,
     40, 45, 30, 40, 45, 30, 40, 45, 30, 40, 45, 30,
     40, 45, 30, 40, 45, 30, 55, 60],
+  createdAt: new Date(),
+  updatedAt: new Date(),
 };
 
 export { asetMock, asetMockId };
