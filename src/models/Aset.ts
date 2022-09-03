@@ -80,6 +80,7 @@ class Aset extends MongoModel<IAset> {
     aset.energy = object.energy;
     aset.temp = object.temp;
     aset.vibration = object.vibration;
+    aset.updatedAt = object.updatedAt;
 
     await aset.save();
   }
