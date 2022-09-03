@@ -10,8 +10,12 @@ const asetSchema = z.object({
   energy: z.number().array(),
   temp: z.number().array(),
   vibration: z.number().array(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  createdAt: z.preprocess((arg) => {
+    if (typeof arg === 'string' || arg instanceof Date) return new Date(arg);
+  }, z.date()),
+  updatedAt: z.preprocess((arg) => {
+    if (typeof arg === 'string' || arg instanceof Date) return new Date(arg);
+  }, z.date()),
 });
 
 type IAset = z.infer<typeof asetSchema>;

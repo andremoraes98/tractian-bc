@@ -16,6 +16,8 @@ const asetMongooseSchema = new Schema<IAset>({
   energy: [Number],
   temp: [Number],
   vibration: [Number],
+  createdAt: Date,
+  updatedAt: Date,
 });
 
 class Aset extends MongoModel<IAset> {
@@ -34,6 +36,8 @@ class Aset extends MongoModel<IAset> {
       energy: 1,
       temp: 1,
       vibration: 1,
+      createdAt: 1,
+      updatedAt: 1,
     });
 
     return aset;
@@ -50,6 +54,8 @@ class Aset extends MongoModel<IAset> {
       energy: 1,
       temp: 1,
       vibration: 1,
+      createdAt: 1,
+      updatedAt: 1,
     });
 
     return result;
