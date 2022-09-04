@@ -8,3 +8,4 @@ const userSchema = z.object({
 type IUser = z.infer<typeof userSchema>;
 
 export default IUser;
+export { userSchema };
