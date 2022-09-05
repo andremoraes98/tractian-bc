@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import IService from '../interface/IService';
+import { IServiceAset } from '../interface/IService';
 import IAset from '../interface/Aset';
 
 class AsetController {
-  private _service: IService<IAset>;
+  private _service: IServiceAset<IAset>;
 
-  constructor(service: IService<IAset>) {
+  constructor(service: IServiceAset<IAset>) {
     this._service = service;
   }
 
@@ -25,7 +25,7 @@ class AsetController {
     return res.status(200).json(result);
   }
 
-  public async readAll(req: Request, res: Response) {
+  public async readAll(_req: Request, res: Response) {
     const result = await this._service.readAll();
 
     return res.status(200).json(result);
@@ -50,6 +50,14 @@ class AsetController {
     return res
       .status(201)
       .json({ message: 'O ativo foi excluído com sucesso.' });
+  }
+
+  public async readAllWhoOwner(req: Request, res: Response) {
+    const { owner } = req.params;
+
+    const result = await this._service.readAllWhoOwner(owner);
+
+    return res.status(200).json(result);
   }
 }
 
