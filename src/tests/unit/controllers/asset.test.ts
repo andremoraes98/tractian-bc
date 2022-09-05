@@ -20,6 +20,7 @@ describe('Aset Controller', () => {
     Sinon.stub(asetService, 'readAll').resolves([asetMockId]);
     Sinon.stub(asetService, 'update').resolves();
     Sinon.stub(asetService, 'destroy').resolves();
+    Sinon.stub(asetService, 'readAllWhoOwner').resolves([asetMockId]);
 
     res.status = Sinon.stub().returns(res);
     res.json = Sinon.stub().returns(res);
@@ -73,6 +74,15 @@ describe('Aset Controller', () => {
       await asetController.destroy(req, res);
 
       expect((res.status as Sinon.SinonStub).calledWith(201)).to.be.true;
+    });
+  });
+
+  describe('procurando todos os ativos pela unidade', () => {
+    it('retornando todos os ativos.', async () => {
+      await asetController.readAllWhoOwner(req, res);
+
+      expect((res.status as Sinon.SinonStub).calledWith(200)).to.be.true;
+      expect((res.json as Sinon.SinonStub).calledWith([asetMockId])).to.be.true;
     });
   });
 });
