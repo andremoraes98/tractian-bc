@@ -43,6 +43,12 @@ class User extends MongoModel<IUser> {
 
     await user.save();
   }
+
+  public async readOneWhoUnit(unit: string): Promise<IUser | null> {
+    const user = await this._model.findOne({ unit });
+
+    return user;
+  }
 }
 
 export default User;
