@@ -11,19 +11,33 @@
     "http"
   ],
   "paths": {
-    "/aset/{id}": {
+    "/aset/{unit}": {
       "get": {
         "description": "",
         "parameters": [
           {
-            "name": "id",
+            "name": "unit",
             "in": "path",
             "required": true,
             "type": "string"
           }
         ],
         "responses": {}
+      }
+    },
+    "/aset": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
       },
+      "put": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/aset/{id}": {
       "post": {
         "description": "",
         "parameters": [
@@ -46,18 +60,6 @@
             "type": "string"
           }
         ],
-        "responses": {}
-      }
-    },
-    "/aset": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      },
-      "put": {
-        "description": "",
-        "parameters": [],
         "responses": {}
       }
     },

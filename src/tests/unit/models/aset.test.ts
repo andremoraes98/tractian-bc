@@ -77,13 +77,13 @@ describe('Aset Model', () => {
 
   describe('procurando um ativo pela unidade', () => {
     it('retornando todos os ativos.', async () => {
-      const asets = await asetModel.readAllWhoUnit(asetMock.owner);
+      const asets = await asetModel.readAllWhoOwner(asetMock.owner);
 
       expect(asets).to.be.deep.equal([asetMockId]);
     });
 
     it('quando nenhum ativo é achado com o filtro.', async () => {
-      const asets = await asetModel.readAllWhoUnit(asetMock.owner);
+      const asets = await asetModel.readAllWhoOwner(asetMock.owner);
 
       expect(asets).to.be.deep.equal([]);
     });

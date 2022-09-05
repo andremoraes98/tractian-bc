@@ -69,8 +69,8 @@ class AsetService implements IServiceAset<IAset> {
     await this._aset.destroy(_id);    
   }
   
-  public async readAllWhoUnit(unit: string): Promise<IAset[] | []> {
-    const result = await this._aset.readAllWhoUnit(unit);
+  public async readAllWhoOwner(owner: string): Promise<IAset[] | []> {
+    const result = await this._aset.readAllWhoOwner(owner);
 
     return result;
   }
