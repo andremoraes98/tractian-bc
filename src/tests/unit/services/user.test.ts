@@ -14,10 +14,13 @@ describe('User Service', () => {
     Sinon.stub(userModel, 'create').resolves(userMockId);
     Sinon.stub(userModel, 'readOne')
       .onCall(0).resolves(null)
-      .resolves(userMockId);
+      .onCall(1).resolves(userMockId);
     Sinon.stub(userModel, 'readAll').resolves([userMockId]);
     Sinon.stub(userModel, 'update').resolves();
     Sinon.stub(userModel, 'destroy').resolves();
+    Sinon.stub(userModel, 'readOneWhoUnit')
+      .onCall(0).resolves(null)
+      .onCall(1).resolves(userMockId);
   });
 
   after(() => {
@@ -107,6 +110,24 @@ describe('User Service', () => {
         expect(e.name).to.be.deep.equal('InvalidMongoId');
         expect(e.message).to.be.deep.equal('O ID inserido não é válido!');
       }
+    });
+  });
+
+  describe('procurando um usuário pela unidade', () => {
+    it('quando o banco não acha o usuário.', async () => {
+      try {
+        await userService.readOneWhoUnit(userMockId._id);
+      } catch(e: any) {
+        expect(e).to.be.instanceOf(CustomError);
+        expect(e.name).to.be.deep.equal('EntityNotFound');
+        expect(e.message).to.be.deep.equal('Nenhum usuário com esse ID foi encontrado.');
+      }
+    });
+
+    it('quando é achado o usuário.', async () => {
+      const aset = await userService.readOneWhoUnit(userMockId._id);
+
+      expect(aset).to.be.deep.equal(userMockId);
     });
   });
 });
