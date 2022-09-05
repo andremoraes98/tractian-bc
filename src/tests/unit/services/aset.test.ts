@@ -18,6 +18,9 @@ describe('Aset Service', () => {
     Sinon.stub(asetModel, 'readAll').resolves([asetMockId]);
     Sinon.stub(asetModel, 'update').resolves();
     Sinon.stub(asetModel, 'destroy').resolves();
+    Sinon.stub(asetModel, 'readAllWhoUnit')
+      .onCall(0).resolves([asetMockId])
+      .resolves([]);
   });
 
   after(() => {
@@ -107,6 +110,20 @@ describe('Aset Service', () => {
         expect(e.name).to.be.deep.equal('InvalidMongoId');
         expect(e.message).to.be.deep.equal('O ID inserido não é válido!');
       }
+    });
+  });
+
+  describe('procurando todos os ativos por unidade', () => {
+    it('retornando todos os ativos.', async () => {
+      const aset = await asetService.readAllWhoUnit(asetMock.owner);
+
+      expect(aset).to.be.deep.equal([asetMockId]);
+    });
+
+    it('quando nenhum ativo estiver cadastrado.', async () => {
+      const aset = await asetService.readAllWhoUnit(asetMock.owner);
+
+      expect(aset).to.be.deep.equal([]);
     });
   });
 });
