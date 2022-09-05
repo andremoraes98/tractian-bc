@@ -7,20 +7,19 @@ import UserController from '../../../controllers/User';
 import { userMock, userMockId } from '../../mocks/userMock';
 
 describe('User Controller', () => {
-  const asetModel = new User();
-  const asetService = new UserService(asetModel);
-  const asetController = new UserController(asetService);
+  const userModel = new User();
+  const userService = new UserService(userModel);
+  const userController = new UserController(userService);
 
   const req = {} as Request;
   const res = {} as Response;
 
   beforeEach(() => {
-    Sinon.stub(asetService, 'create').resolves(userMockId);
-    Sinon.stub(asetService, 'readOne').resolves(userMockId);
-    Sinon.stub(asetService, 'readOneWhoUnit').resolves(userMockId);
-    Sinon.stub(asetService, 'readAll').resolves([userMockId]);
-    Sinon.stub(asetService, 'update').resolves();
-    Sinon.stub(asetService, 'destroy').resolves();
+    Sinon.stub(userService, 'create').resolves(userMockId);
+    Sinon.stub(userService, 'readOne').resolves(userMockId);
+    Sinon.stub(userService, 'readAll').resolves([userMockId]);
+    Sinon.stub(userService, 'update').resolves();
+    Sinon.stub(userService, 'destroy').resolves();
 
     res.status = Sinon.stub().returns(res);
     res.json = Sinon.stub().returns(res);
@@ -33,7 +32,7 @@ describe('User Controller', () => {
   describe('criando um usuário', () => {
     it('criado com sucesso.', async () => {
       req.body = userMock;
-      await asetController.create(req, res);
+      await userController.create(req, res);
 
       expect((res.status as Sinon.SinonStub).calledWith(201)).to.be.true;
       expect((res.json as Sinon.SinonStub).calledWith(userMockId)).to.be.true;
@@ -43,7 +42,7 @@ describe('User Controller', () => {
   describe('procurando um usuário', () => {
     it('quando é achado o usuário.', async () => {
       req.params = { id: userMockId._id };
-      await asetController.readOne(req, res);
+      await userController.readOne(req, res);
 
       expect((res.status as Sinon.SinonStub).calledWith(200)).to.be.true;
       expect((res.json as Sinon.SinonStub).calledWith(userMockId)).to.be.true;
@@ -52,7 +51,7 @@ describe('User Controller', () => {
 
   describe('procurando todos os usuários', () => {
     it('retornando todos os usuários.', async () => {
-      await asetController.readAll(req, res);
+      await userController.readAll(req, res);
 
       expect((res.status as Sinon.SinonStub).calledWith(200)).to.be.true;
       expect((res.json as Sinon.SinonStub).calledWith([userMockId])).to.be.true;
@@ -62,7 +61,7 @@ describe('User Controller', () => {
   describe('editando um usuário', () => {
     it('editado com sucesso.', async () => {
       req.body = userMock;
-      await asetController.update(req, res);
+      await userController.update(req, res);
 
       expect((res.status as Sinon.SinonStub).calledWith(201)).to.be.true;
     });
@@ -71,19 +70,9 @@ describe('User Controller', () => {
   describe('excluindo um usuário', () => {
     it('excluído com sucesso.', async () => {
       req.body = userMock;
-      await asetController.destroy(req, res);
+      await userController.destroy(req, res);
 
       expect((res.status as Sinon.SinonStub).calledWith(201)).to.be.true;
-    });
-  });
-
-  describe('procurando um usuário pela unidade', () => {
-    it('quando é achado o usuário.', async () => {
-      req.params = { unit: userMockId.unit };
-      await asetController.readOneWhoUnit(req, res);
-
-      expect((res.status as Sinon.SinonStub).calledWith(200)).to.be.true;
-      expect((res.json as Sinon.SinonStub).calledWith(userMockId)).to.be.true;
     });
   });
 });

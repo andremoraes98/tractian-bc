@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
-import { IServiceUser } from '../interface/IService';
+import IService from '../interface/IService';
 import IUser from '../interface/User';
 
 class UserController {
-  private _service: IServiceUser<IUser>;
+  private _service: IService<IUser>;
 
-  constructor(service: IServiceUser<IUser>) {
+  constructor(service: IService<IUser>) {
     this._service = service;
   }
 
@@ -50,14 +50,6 @@ class UserController {
     return res
       .status(201)
       .json({ message: 'O usuário foi excluído com sucesso.' });
-  }
-
-  public async readOneWhoUnit(req: Request, res: Response) {
-    const { unit } = req.params;
-
-    const result = await this._service.readOneWhoUnit(unit);
-
-    return res.status(200).json(result);
   }
 }
 

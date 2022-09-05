@@ -61,33 +61,19 @@
         "responses": {}
       }
     },
-    "/user/{unit}": {
+    "/user/{id}": {
       "get": {
         "description": "",
         "parameters": [
           {
-            "name": "unit",
+            "name": "id",
             "in": "path",
             "required": true,
             "type": "string"
           }
         ],
         "responses": {}
-      }
-    },
-    "/user": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
       },
-      "put": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/user/{id}": {
       "post": {
         "description": "",
         "parameters": [
@@ -110,6 +96,18 @@
             "type": "string"
           }
         ],
+        "responses": {}
+      }
+    },
+    "/user": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "put": {
+        "description": "",
+        "parameters": [],
         "responses": {}
       }
     }
