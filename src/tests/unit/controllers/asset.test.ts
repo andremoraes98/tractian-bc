@@ -4,7 +4,6 @@ import AsetController from '../../../controllers/Aset';
 import { asetMock, asetMockId } from '../../mocks/asetMock';
 import { expect } from 'chai';
 import Sinon from 'sinon';
-import { ZodError } from 'zod';
 import { Request, Response } from 'express';
 
 describe('Aset Controller', () => {

@@ -61,12 +61,12 @@
         "responses": {}
       }
     },
-    "user/{id}": {
+    "/user/{unit}": {
       "get": {
         "description": "",
         "parameters": [
           {
-            "name": "id",
+            "name": "unit",
             "in": "path",
             "required": true,
             "type": "string"
