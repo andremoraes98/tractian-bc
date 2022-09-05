@@ -3,6 +3,7 @@ import {
   Schema,
 } from 'mongoose';
 import IAset from '../interface/Aset';
+import { IModelAsset } from '../interface/IModel';
 import CustomError from '../middleware/erros/CustomError';
 import MongoModel from './MongoModel';
 
@@ -29,7 +30,7 @@ const asetMongooseSchema = new Schema<IAset>({
   updatedAt: Date,
 });
 
-class Aset extends MongoModel<IAset> {
+class Aset extends MongoModel<IAset> implements IModelAsset<IAset> {
   constructor(model = mongooseCreateModel('Aset', asetMongooseSchema)) {
     super(model);
   }
@@ -92,6 +93,24 @@ class Aset extends MongoModel<IAset> {
     aset.updatedAt = object.updatedAt;
 
     await aset.save();
+  }
+
+  public async readAllWhoUnit(unit: string): Promise<IAset[] | null> {
+    const aset = this._model.find({ unit }, {
+      name: 1,
+      model: 1,
+      owner: 1,
+      status: 1,
+      helthLevel: 1,
+      image: 1,
+      energy: 1,
+      temp: 1,
+      vibration: 1,
+      createdAt: 1,
+      updatedAt: 1,
+    });
+
+    return aset;
   }
 }
 
