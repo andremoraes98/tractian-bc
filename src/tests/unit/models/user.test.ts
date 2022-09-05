@@ -12,7 +12,9 @@ describe('User Model', () => {
     Sinon.stub(Model, 'create').resolves(userMockId);
     Sinon.stub(Model, 'findOne')
       .onCall(0).resolves(userMockId)
-      .onCall(1).resolves(null);
+      .onCall(1).resolves(null)
+      .onCall(2).resolves(userMockId)
+      .onCall(3).resolves(null);
     Sinon.stub(Model, 'find').resolves([userMockId]);
     Sinon.stub(Model, 'findById').resolves(null);
   });
@@ -63,5 +65,19 @@ describe('User Model', () => {
         expect(e.message).to.be.deep.equal('Nenhum usuário com esse ID foi encontrado.');
       }
     })
+  });
+
+  describe('procurando um usuário pela unidade', () => {
+    it('achado com sucesso.', async () => {
+      const user = await userModel.readOneWhoUnit('62cf1fc6498565d94eba52cd');
+
+      expect(user).to.be.deep.equal(userMockId);
+    });
+
+    it('quando o ativo não é achado.', async () => {
+      const user = await userModel.readOneWhoUnit('wrongId');
+
+      expect(user).to.be.null;
+    });
   });
 });
