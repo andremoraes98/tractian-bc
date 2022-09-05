@@ -7,7 +7,7 @@ interface IService<T> {
 }
 
 interface IServiceAset<T> extends IService<T> {
-  readOneWhoUnit(unit: string): Promise<T>;
+  readAllWhoUnit(unit: string): Promise<T[] | []>;
 }
 
 export default IService;
