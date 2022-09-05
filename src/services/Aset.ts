@@ -1,15 +1,15 @@
 import { isValidObjectId } from 'mongoose';
-import IService from '../interface/IService';
+import { IServiceAset } from '../interface/IService';
 import IAset, { asetSchema } from '../interface/Aset';
-import IModel from '../interface/IModel';
+import { IModelAsset } from '../interface/IModel';
 import CustomError from '../middleware/erros/CustomError';
 
 const InvalidMongoIdMessage = 'O ID inserido não é válido!';
 
-class AsetService implements IService<IAset> {
-  private _aset: IModel<IAset>;
+class AsetService implements IServiceAset<IAset> {
+  private _aset: IModelAsset<IAset>;
 
-  constructor(model: IModel<IAset>) {
+  constructor(model: IModelAsset<IAset>) {
     this._aset = model;
   }
 
@@ -67,6 +67,12 @@ class AsetService implements IService<IAset> {
       throw new CustomError('InvalidMongoId', InvalidMongoIdMessage);
     }
     await this._aset.destroy(_id);    
+  }
+  
+  public async readAllWhoUnit(unit: string): Promise<IAset[] | []> {
+    const result = await this._aset.readAllWhoUnit(unit);
+
+    return result;
   }
 }
 
