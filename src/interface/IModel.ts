@@ -7,7 +7,7 @@ interface IModel<T> {
 }
 
 interface IModelAsset<T> extends IModel<T> {
-  readOneWhoUnit(unit: string): Promise<T | null>,
+  readAllWhoUnit(unit: string): Promise<T[] | null>,
 }
 
 export default IModel;
