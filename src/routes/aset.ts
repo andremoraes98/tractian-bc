@@ -9,7 +9,8 @@ const asetModel = new AsetModel();
 const asetService = new AserService(asetModel);
 const asetController = new AsetController(asetService);
 
-route.get('/aset/:id', (req, res) => asetController.readOne(req, res));
+route.get('/aset/:owner', (req, res) => asetController
+  .readAllWhoOwner(req, res));
 route.get('/aset', (req, res) => asetController.readAll(req, res));
 route.put('/aset', (req, res) => asetController.create(req, res));
 route.post('/aset/:id', (req, res) => asetController.update(req, res));
