@@ -18,7 +18,7 @@ describe('Aset Service', () => {
     Sinon.stub(asetModel, 'readAll').resolves([asetMockId]);
     Sinon.stub(asetModel, 'update').resolves();
     Sinon.stub(asetModel, 'destroy').resolves();
-    Sinon.stub(asetModel, 'readAllWhoUnit')
+    Sinon.stub(asetModel, 'readAllWhoOwner')
       .onCall(0).resolves([asetMockId])
       .resolves([]);
   });
@@ -115,13 +115,13 @@ describe('Aset Service', () => {
 
   describe('procurando todos os ativos por unidade', () => {
     it('retornando todos os ativos.', async () => {
-      const aset = await asetService.readAllWhoUnit(asetMock.owner);
+      const aset = await asetService.readAllWhoOwner(asetMock.owner);
 
       expect(aset).to.be.deep.equal([asetMockId]);
     });
 
     it('quando nenhum ativo estiver cadastrado.', async () => {
-      const aset = await asetService.readAllWhoUnit(asetMock.owner);
+      const aset = await asetService.readAllWhoOwner(asetMock.owner);
 
       expect(aset).to.be.deep.equal([]);
     });
