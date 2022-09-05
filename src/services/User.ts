@@ -1,5 +1,5 @@
 import { isValidObjectId } from 'mongoose';
-import IModel from '../interface/IModel';
+import { IModelUser } from '../interface/IModel';
 import IService from '../interface/IService';
 import IUser, { userSchema } from '../interface/User';
 import CustomError from '../middleware/erros/CustomError';
@@ -7,9 +7,9 @@ import CustomError from '../middleware/erros/CustomError';
 const InvalidMongoIdMessage = 'O ID inserido não é válido!';
 
 class UserService implements IService<IUser> {
-  private _user: IModel<IUser>;
+  private _user: IModelUser<IUser>;
 
-  constructor(model: IModel<IUser>) {
+  constructor(model: IModelUser<IUser>) {
     this._user = model;
   }
 
@@ -67,6 +67,19 @@ class UserService implements IService<IUser> {
       throw new CustomError('InvalidMongoId', InvalidMongoIdMessage);
     }
     await this._user.destroy(_id);
+  }
+
+  public async readOneWhoUnit(unit: string): Promise<IUser> {
+    const user = await this._user.readOneWhoUnit(unit);
+
+    if (!user) {
+      throw new CustomError(
+        'EntityNotFound',
+        'Nenhum usuário com esse ID foi encontrado.',
+      );
+    }
+
+    return user;
   }
 }
 
