@@ -95,7 +95,7 @@ class Aset extends MongoModel<IAset> implements IModelAsset<IAset> {
     await aset.save();
   }
 
-  public async readAllWhoUnit(unit: string): Promise<IAset[] | null> {
+  public async readAllWhoUnit(unit: string): Promise<IAset[] | []> {
     const aset = this._model.find({ unit }, {
       name: 1,
       model: 1,
