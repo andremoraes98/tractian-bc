@@ -29,6 +29,8 @@ Caso queira consultar a documentação, ela está disponível neste [link](https
 - ESLint;
 - Mocha, Chai e Sinon;
 - Heroku;
+- CI;
+- Zod;
 - MongoDB Atlas.
 
 ---
@@ -52,6 +54,10 @@ npm start
 Feito isso, a aplicação estará rodando localmente. Se não configurada uma porta específica em uma variável de ambiente, ela roda, por padrão, na porta 3001.
 
 Depois que ela estiver rodando, basta seguir a [documentação](https://tractian-bc.herokuapp.com/doc/) e testar.
+
+## Implementação futura :soon:
+
+- Autenticação do usuário com credenciais (login e senha), utilizando o JSON Web Token;
 
 --- 
 
