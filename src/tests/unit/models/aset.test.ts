@@ -13,7 +13,11 @@ describe('Aset Model', () => {
     Sinon.stub(Model, 'findOne')
       .onCall(0).resolves(asetMockId)
       .onCall(1).resolves(null);
-    Sinon.stub(Model, 'find').resolves([asetMockId]);
+    Sinon.stub(Model, 'find')
+      .onCall(0).resolves([asetMockId])
+      .onCall(1).resolves([])
+      .onCall(2).resolves([asetMockId])
+      .onCall(3).resolves([]);
     Sinon.stub(Model, 'findById').resolves(null);
   });
 
@@ -49,6 +53,12 @@ describe('Aset Model', () => {
 
       expect(asets).to.be.deep.equal([asetMockId]);
     });
+
+    it('quando nenhum ativo é achado com o filtro.', async () => {
+      const asets = await asetModel.readAll();
+
+      expect(asets).to.be.deep.equal([]);
+    });
   });
 
   describe('editando um ativo', () => {
@@ -63,5 +73,19 @@ describe('Aset Model', () => {
         expect(e.message).to.be.deep.equal('Nenhum ativo com esse ID foi encontrado.');
       }
     })
+  });
+
+  describe('procurando um ativo pela unidade', () => {
+    it('retornando todos os ativos.', async () => {
+      const asets = await asetModel.readAllWhoUnit(asetMock.owner);
+
+      expect(asets).to.be.deep.equal([asetMockId]);
+    });
+
+    it('quando nenhum ativo é achado com o filtro.', async () => {
+      const asets = await asetModel.readAllWhoUnit(asetMock.owner);
+
+      expect(asets).to.be.deep.equal([]);
+    });
   });
 });

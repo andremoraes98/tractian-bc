@@ -6,7 +6,7 @@ const asetMock: IAset = {
   helthLevel: '90',
   image: '',
   model: 'WEG',
-  owner: 'Industria Freios Supremos 1',
+  owner: 'ABS',
   energy: {
     data: [30, 40, 45, 30, 40, 45, 30, 40, 45, 30,
       40, 45, 30, 40, 45, 30, 40, 45, 30, 40, 45, 30,
